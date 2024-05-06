@@ -20,7 +20,7 @@ public class MenuAction : MonoBehaviour
  
     public GameObject[] sites;
     public GameObject[] categories;
-
+    //cambio de categoria en dropdown
      public void ChangeCategory(int num){
         Debug.Log("Category: " + num);
         for( int i = 0; i<categories.Length; i++){
@@ -30,7 +30,7 @@ public class MenuAction : MonoBehaviour
         categories[num].SetActive(true);
         Debug.Log("Category: " + categories[num].name);
   }
-    
+    //Cambio de sitio
     public void GoSite(int num){
         for( int i = 0; i<sites.Length; i++){
          sites[i].SetActive(false);
@@ -38,12 +38,13 @@ public class MenuAction : MonoBehaviour
         }
         sites[num].SetActive(true);
     }
-
+//Reproducir sonido
      public void playButton(){
     sound.Play();
    }
    
-  //Button handling
+  //Menu
+
     void Update()
     {
         bool menuButtonCurrentState;
