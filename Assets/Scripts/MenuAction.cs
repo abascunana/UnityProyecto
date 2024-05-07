@@ -44,6 +44,10 @@ public class MenuAction : MonoBehaviour
    }
    
   //Menu
+  void Start()
+    {
+       GoSite(0);
+    }
 
     void Update()
     {
