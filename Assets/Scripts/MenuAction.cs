@@ -1,21 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEngine.XR.Interaction.Toolkit.InputHelpers;
-using static UnityEngine.XR.OpenXR.Features.Interactions.OculusTouchControllerProfile;
- using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit;
 
-    // ...
+using UnityEngine;
+
+
+//las siguientes librerías son necesarias para el uso de XR
 public class MenuAction : MonoBehaviour
 {  private bool menuButtonPreviousState = false;
-    public UnityEngine.XR.Interaction.Toolkit.XRRayInteractor rayInteractor;
-    public GameObject player;
     //menu
     public GameObject menu;
+    //Esta variable se establece en el inspector y se asigna a un objeto de tipo AudioSource en el menú de categorías
     public AudioSource sound;
  
     public GameObject[] sites;
@@ -24,19 +16,26 @@ public class MenuAction : MonoBehaviour
      public void ChangeCategory(int num){
         Debug.Log("Category: " + num);
         for( int i = 0; i<categories.Length; i++){
-         categories[i].SetActive(false);
-           
+            if(i == num){
+                categories[i].SetActive(true);  
+            }else{           
+                categories[i].SetActive(false);
+            }     
         }
-        categories[num].SetActive(true);
+        
         Debug.Log("Category: " + categories[num].name);
   }
     //Cambio de sitio
     public void GoSite(int num){
         for( int i = 0; i<sites.Length; i++){
-         sites[i].SetActive(false);
+         if(i == num){
+               sites[i].SetActive(true);  
+            }else{           
+                sites[i].SetActive(false);
+            }    
            
         }
-        sites[num].SetActive(true);
+        Debug.Log("Site: " + sites[num].name);
     }
 //Reproducir sonido
      public void playButton(){
@@ -50,19 +49,22 @@ public class MenuAction : MonoBehaviour
     }
 
     void Update()
-    {
+    {  //Ya que update se ejecuta una vez por frame, se puede usar para detectar el cambio de estado del botón
         bool menuButtonCurrentState;
         if (UnityEngine.XR.InputDevices.GetDeviceAtXRNode(UnityEngine.XR.XRNode.LeftHand).TryGetFeatureValue(UnityEngine.XR.CommonUsages.menuButton, out menuButtonCurrentState))
         {
+          
             if (menuButtonCurrentState && !menuButtonPreviousState)
             {
                 Debug.Log("Menu button pressed!");
+                //Desactivar o activar el menu
                 if(menu != null)
                 {
                     menu.SetActive(!menu.activeSelf);
                 }
     
             }
+            
             menuButtonPreviousState = menuButtonCurrentState;
         }
     }
